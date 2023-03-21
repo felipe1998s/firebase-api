@@ -2,7 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser=require("cookie-parser");
 const morgan = require("morgan");
-const exphdb = require("express-handlebars");
 const router = require("./routes/index");
 
 const app = express();
