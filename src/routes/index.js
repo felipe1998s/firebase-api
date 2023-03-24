@@ -32,4 +32,10 @@ router.post('/new-affected',(req,res)=>{
     // res.status(200).send('recived');
 });
 
+router.delete('/delete-affected/:id',(req,res)=>{
+    const {id} = req.params;
+    db.ref('affecteds/' + id).remove();
+    res.status(200).json({"message": "affected was removed"});
+});
+
 module.exports = router;
