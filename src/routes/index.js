@@ -22,8 +22,17 @@ router.post('/new-affected',(req,res)=>{
     const dataBody = req.body;
     dataBody.forEach((affected,index)=>{
         const newAffected = { ...affected };
+        const {idCard} = affected;
         console.log(newAffected,index);
-        db.ref('affecteds').push(newAffected); 
+        const reference = db.ref('affecteds') //.set(newAffected); 
+        reference.orderByChild("idCard").equalTo(idCard).once("value",async function(snapshot){
+            if(snapshot.exists()){
+                console.log("El registro ya existe en la BD");
+            }else{
+                await reference.push(newAffected);
+                console.log("Nuevo registro agregado");
+            }
+        })
     });
     res.status(200).send('recived');
     // const {idCard, name , age , country,birthday,location} = req.body;
